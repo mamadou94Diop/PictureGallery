@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/navigation_app"
+            app:startDestination="@id/pictureListFragment">
+
+
+    <fragment android:id="@+id/pictureListFragment"
+              android:name="com.mjob.picturegallery.ui.fragments.PictureListFragment"
+              android:label="PictureListFragment"
+              tools:layout="@layout/fragment_picture_list">
+        <action android:id="@+id/action_pictureListFragment_to_pictureDetailsFragment"
+                app:destination="@id/pictureDetailsFragment" app:enterAnim="@anim/nav_default_enter_anim"
+                app:exitAnim="@anim/nav_default_exit_anim" app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+                app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
+    </fragment>
+
+    <fragment android:id="@+id/pictureDetailsFragment"
+              android:name="com.mjob.picturegallery.ui.fragments.PictureDetailsFragment"
+              android:label="picture_details_fragment"
+        tools:layout="@layout/picture_details_fragment">
+        <argument android:name="picture" app:argType="com.mjob.picturegallery.repository.api.model.Picture"/>
+    </fragment>
+</navigation>
