@@ -8,7 +8,6 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.NavHostFragment
-import androidx.paging.PagedList
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mjob.picturegallery.R
@@ -18,7 +17,8 @@ import com.mjob.picturegallery.ui.viewmodels.AlbumListViewModel
 import com.mjob.picturegallery.utils.parentActivity
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.fragment_picture_list.*
+import kotlinx.android.synthetic.main.fragment_album_list.*
+import kotlinx.android.synthetic.main.fragment_picture_list.recyclerView
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -71,13 +71,14 @@ class AlbumListFragment : DaggerFragment(), OnAlbumEventListener {
     private fun initializeViewModel() {
         viewModel = ViewModelProvider(this, viewModelFactory).get(AlbumListViewModel::class.java)
 
-        getPictures()
+        getAlbums()
 
     }
 
-    private fun getPictures() {
+    private fun getAlbums() {
         lifecycleScope.launch {
-            viewModel.getAlbums().observe(viewLifecycleOwner, Observer<PagedList<Int>> {
+            viewModel.getAlbums()?.observe(viewLifecycleOwner, Observer {
+                albums_loading_progressbar.visibility = View.INVISIBLE
                 adapter.submitList(it)
             })
         }

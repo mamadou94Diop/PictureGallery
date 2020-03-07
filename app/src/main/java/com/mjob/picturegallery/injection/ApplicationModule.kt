@@ -10,6 +10,7 @@ import com.mjob.picturegallery.PictureApplication
 
 import com.mjob.picturegallery.repository.api.PictureApiRepository
 import com.mjob.picturegallery.repository.data.PictureDataRepository
+import com.mjob.picturegallery.repository.data.dao.DatabaseStatusDao
 import com.mjob.picturegallery.repository.data.dao.PictureDao
 import com.mjob.picturegallery.repository.data.impl.LocalPictureDataRepository
 import com.mjob.picturegallery.utils.CoroutineContextProvider
@@ -62,6 +63,10 @@ class ApplicationModule {
     fun providePictureDao(database: Database): PictureDao {
         return database.pictureDao()
     }
+    @Provides
+    fun provideDatabaseStatusDao(database: Database): DatabaseStatusDao {
+        return database.databaseStatusDao()
+    }
 
     @Provides
     fun providePictureApiRepository(
@@ -75,8 +80,13 @@ class ApplicationModule {
     @Provides
     fun providePictureDataRepository(
         pictureDao: PictureDao,
+        databaseStatusDao: DatabaseStatusDao,
         coroutineContextProvider: CoroutineContextProvider
     ): PictureDataRepository {
-        return LocalPictureDataRepository(pictureDao, coroutineContextProvider)
+        return LocalPictureDataRepository(
+            pictureDao,
+            databaseStatusDao,
+            coroutineContextProvider
+        )
     }
 }

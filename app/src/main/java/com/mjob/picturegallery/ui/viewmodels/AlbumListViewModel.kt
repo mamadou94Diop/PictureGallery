@@ -17,23 +17,29 @@ import javax.inject.Inject
 class AlbumListViewModel @Inject constructor(private val pictureInteractor: PictureInteractor) :
     ViewModel() {
 
-    lateinit var factory : DataSource.Factory<Int,Int>
 
-     suspend fun getAlbums() : LiveData<PagedList<Int>> {
+    suspend fun getAlbums(): LiveData<PagedList<Int>>? {
+        var factory: DataSource.Factory<Int, Int>? = null
+        var albums: LiveData<PagedList<Int>>? = null
+
         withContext(Dispatchers.IO) {
-             factory = pictureInteractor.getAlbums()
+            factory = pictureInteractor.getAlbums()
         }
-         val pagedListConfig =
-             PagedList.Config.Builder()
-                 .setEnablePlaceholders(false)
-                 .setPageSize(20)
-                 .setInitialLoadSizeHint(20)
-                 .setPrefetchDistance(20)
-                 .build()
 
-       return  LivePagedListBuilder(factory,pagedListConfig).build()
+        if (factory != null) {
+            val pagedListConfig =
+                PagedList.Config.Builder()
+                    .setEnablePlaceholders(false)
+                    .setPageSize(20)
+                    .setInitialLoadSizeHint(20)
+                    .setPrefetchDistance(20)
+                    .build()
+
+            albums = LivePagedListBuilder(factory!!, pagedListConfig).build()
+        }
+
+        return albums
     }
-
 
 
 }
