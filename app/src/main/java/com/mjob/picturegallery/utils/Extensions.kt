@@ -52,7 +52,7 @@ fun ImageView.loadImageFromUrl(
 ) {
     GlideApp.with(context)
         .load(url)
-       .diskCacheStrategy(DiskCacheStrategy.ALL)
+        .diskCacheStrategy(DiskCacheStrategy.ALL)
         .error(R.drawable.no_image)
         .addListener(object : RequestListener<Drawable> {
             override fun onLoadFailed(

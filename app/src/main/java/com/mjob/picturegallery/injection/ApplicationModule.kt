@@ -12,7 +12,6 @@ import com.mjob.picturegallery.repository.api.PictureApiRepository
 import com.mjob.picturegallery.repository.data.PictureDataRepository
 import com.mjob.picturegallery.repository.data.dao.PictureDao
 import com.mjob.picturegallery.repository.data.impl.LocalPictureDataRepository
-import com.mjob.picturegallery.utils.AppExecutors
 import com.mjob.picturegallery.utils.CoroutineContextProvider
 import dagger.Module
 import dagger.Provides
@@ -44,9 +43,6 @@ class ApplicationModule {
     fun providePictureApiService(retrofit: Retrofit): PictureApiService {
         return retrofit.create(PictureApiService::class.java)
     }
-
-    @Provides
-    fun provideExecutor() = AppExecutors()
 
     @Singleton
     @Provides

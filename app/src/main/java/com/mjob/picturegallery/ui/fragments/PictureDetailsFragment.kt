@@ -37,13 +37,14 @@ class PictureDetailsFragment : DaggerFragment() {
             ViewModelProvider(this, viewModelFactory).get(PictureDetailsViewModel::class.java)
         val toolbar = parentActivity().toolbar
 
-        toolbar!!.title = "Full Picture"
+        val picture = PictureDetailsFragmentArgs.fromBundle(arguments!!).picture
+
+        toolbar!!.title = "Picture ${picture.id}"
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back)
         toolbar.setNavigationOnClickListener {
             Navigation.findNavController(view).popBackStack()
         }
 
-        val picture = PictureDetailsFragmentArgs.fromBundle(arguments!!).picture!!
         fullPicture.loadImageFromUrl(picture.url, {
             image_loading_progressbar.visibility = View.INVISIBLE
         }, {

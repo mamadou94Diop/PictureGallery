@@ -14,14 +14,14 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-class PictureListViewModel @Inject constructor(private val pictureInteractor: PictureInteractor) :
+class AlbumListViewModel @Inject constructor(private val pictureInteractor: PictureInteractor) :
     ViewModel() {
 
-    lateinit var factory : DataSource.Factory<Int,Picture>
+    lateinit var factory : DataSource.Factory<Int,Int>
 
-     suspend fun getPics(albumId: Int) : LiveData<PagedList<Picture>> {
+     suspend fun getAlbums() : LiveData<PagedList<Int>> {
         withContext(Dispatchers.IO) {
-             factory = pictureInteractor.getPicturesByAlbum(albumId)
+             factory = pictureInteractor.getAlbums()
         }
          val pagedListConfig =
              PagedList.Config.Builder()

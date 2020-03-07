@@ -18,10 +18,9 @@ class LocalPictureDataRepository @Inject constructor(
         }
     }
 
-    override suspend fun size(): Int {
-        return dao.size()
-    }
+    override suspend fun getAlbums() = dao.findAlbums()
 
-    override suspend  fun get() : DataSource.Factory<Int, Picture> = dao.getPictures()
+    override suspend fun getPicturesByAlbum(albumId: Int)= dao.findPicturesByAlbum(albumId)
 
+    override suspend fun size() = dao.size()
 }
