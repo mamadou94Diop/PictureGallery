@@ -25,54 +25,44 @@
             android:layout_marginStart="0dp"/>
 
         <TextView
-            android:id="@+id/picture_author_label"
+            android:id="@+id/picture_id_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Author:"
+            android:text="Id:"
             android:textAppearance="?attr/textAppearanceListItem"
             app:layout_constraintLeft_toRightOf="@id/picture_thumbnail"
             android:layout_marginStart="8dp"
             app:layout_constraintTop_toTopOf="parent"/>
 
         <TextView
-            android:id="@+id/picture_author_value"
+            android:id="@+id/picture_id_value"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Tony"
+            android:text="2"
             android:textAppearance="?attr/textAppearanceListItem"
-            app:layout_constraintLeft_toRightOf="@id/picture_author_label"
+            app:layout_constraintLeft_toRightOf="@id/picture_id_label"
             android:layout_marginStart="8dp"
             app:layout_constraintTop_toTopOf="parent"/>
 
         <TextView
-            android:id="@+id/picture_post_date_label"
+            android:id="@+id/picture_title_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="date:"
+            android:text="Title:"
             android:textAppearance="?attr/textAppearanceListItem"
             app:layout_constraintLeft_toRightOf="@id/picture_thumbnail"
             android:layout_marginStart="8dp"
-            app:layout_constraintTop_toBottomOf="@id/picture_author_label"/>
+            app:layout_constraintTop_toBottomOf="@id/picture_id_label"/>
 
         <TextView
-            android:id="@+id/picture_post_date_value"
+            android:id="@+id/picture_title_value"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="14/07/2019"
+            android:text="lorem ipsum"
             android:textAppearance="?attr/textAppearanceListItem"
-            android:layout_marginStart="8dp"
-            app:layout_constraintLeft_toRightOf="@id/picture_post_date_label"
-            app:layout_constraintTop_toBottomOf="@id/picture_author_label"/>
+            app:layout_constraintLeft_toRightOf="@id/picture_title_label"
+            app:layout_constraintTop_toBottomOf="@id/picture_id_label" />
 
-        <TextView
-            android:id="@+id/picture_likes"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="12"
-            android:textAppearance="?attr/textAppearanceListItem"
-            android:layout_marginStart="8dp"
-            app:layout_constraintLeft_toRightOf="@id/picture_thumbnail"
-            app:layout_constraintTop_toBottomOf="@id/picture_post_date_label"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

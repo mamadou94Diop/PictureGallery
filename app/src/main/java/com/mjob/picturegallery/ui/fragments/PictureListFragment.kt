@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.Navigation
 import androidx.navigation.fragment.NavHostFragment
 import androidx.paging.PagedList
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -40,8 +41,10 @@ class PictureListFragment : DaggerFragment(),
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initializeViewModel()
-        initializeView()
+        val albumId = PictureListFragmentArgs.fromBundle(arguments!!).albumId
+
+        initializeViewModel(albumId)
+        initializeView(view, albumId)
     }
 
     override fun openPicture(picture: Picture?) {
@@ -53,51 +56,34 @@ class PictureListFragment : DaggerFragment(),
         }
     }
 
-    private fun initializeView() {
+    private fun initializeView(view: View, albumId: Int) {
         val toolbar = parentActivity().toolbar
-        toolbar!!.title = getString(R.string.app_name)
-        toolbar.navigationIcon = null
 
+        toolbar!!.title = "Album $albumId"
+        toolbar.setNavigationIcon(R.drawable.ic_arrow_back)
+        toolbar.setNavigationOnClickListener {
+            Navigation.findNavController(view).popBackStack()
+        }
+
+        adapter.listener = this
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.adapter = adapter
     }
 
-    private fun initializeViewModel() {
+    private fun initializeViewModel(albumId: Int) {
         viewModel = ViewModelProvider(this, viewModelFactory).get(PictureListViewModel::class.java)
 
-        getPictures()
+        getPictures(albumId)
 
-        checkNetworkState()
     }
 
-    private fun checkNetworkState() {
-     /*   viewModel.networkState.observe(this, Observer<NetworkState> {
-            onNetworkStateUpdated(it)
-        })*/
-    }
-
-    private fun getPictures() {
+    private fun getPictures(albumId: Int) {
         lifecycleScope.launch{
-            viewModel.getPics().observe(viewLifecycleOwner, Observer<PagedList<Picture>> {
+            viewModel.getPics(albumId).observe(viewLifecycleOwner, Observer {
                 adapter.submitList(it)
             })
         }
 
-    }
-
-    private fun onNetworkStateUpdated(networkState: NetworkState) {
-        when (networkState.status) {
-            NetworkState.Status.SUCCESS -> toggleProgressBarVisibility(false)
-            NetworkState.Status.RUNNING -> toggleProgressBarVisibility(true)
-            NetworkState.Status.FAILED -> showErrorMessage(getString(R.string.error_open_file))
-        }
-    }
-
-    private fun toggleProgressBarVisibility(shouldBeVisible: Boolean) {
-        if (shouldBeVisible)
-            loadingProgressBar.visibility = View.VISIBLE
-        else
-            loadingProgressBar.visibility = View.GONE
     }
 
     private fun showErrorMessage(errorMessage: String) {

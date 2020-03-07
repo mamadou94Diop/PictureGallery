@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.mjob.picturegallery.R
 import com.mjob.picturegallery.repository.api.model.Picture
+import com.mjob.picturegallery.ui.fragments.OnPictureItemClickListener
 import com.mjob.picturegallery.utils.loadImageFromUrl
 import javax.inject.Inject
 
@@ -17,7 +18,7 @@ class PictureListAdapter @Inject constructor() :
     PagedListAdapter<Picture, PictureViewHolder>(
         PICTURE_COMPARATOR
     ) {
-   // var pictureItemClickListener: OnPictureItemClickListener? = null
+    var listener: OnPictureItemClickListener? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PictureViewHolder {
         val view = LayoutInflater.from(parent.context)
@@ -29,7 +30,7 @@ class PictureListAdapter @Inject constructor() :
         val picture = getItem(position)
         holder.bindTo(picture)
         holder.itemView.setOnClickListener {
-          //  pictureItemClickListener?.openPicture(picture)
+            listener?.openPicture(picture)
         }
     }
 
@@ -51,14 +52,13 @@ class PictureViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             val pictureThumbnail: ImageView = itemView.findViewById(R.id.picture_thumbnail)
             pictureThumbnail.loadImageFromUrl(picture.thumbnailUrl)
 
-            val pictureAuthor: TextView = itemView.findViewById(R.id.picture_author_value)
-            pictureAuthor.text = picture.title
+            val pictureId: TextView = itemView.findViewById(R.id.picture_id_value)
+            pictureId.text = "${picture.id}"
 
-            val pictureDescription: TextView = itemView.findViewById(R.id.picture_post_date_value)
-            pictureDescription.text = picture.albumId.toString()
+            val pictureTitle: TextView = itemView.findViewById(R.id.picture_title_value)
+            pictureTitle.text = picture.title
 
-            val pictureLikes: TextView = itemView.findViewById(R.id.picture_likes)
-            pictureLikes.text = picture.id.toString()
+
         }
     }
 }

@@ -19,9 +19,9 @@ class PictureListViewModel @Inject constructor(private val pictureInteractor: Pi
 
     lateinit var factory : DataSource.Factory<Int,Picture>
 
-     suspend fun getPics() : LiveData<PagedList<Picture>> {
+     suspend fun getPics(albumId: Int) : LiveData<PagedList<Picture>> {
         withContext(Dispatchers.IO) {
-             factory = pictureInteractor.getPictures()
+             factory = pictureInteractor.getPicturesByAlbum(albumId)
         }
          val pagedListConfig =
              PagedList.Config.Builder()

@@ -12,11 +12,11 @@ interface PictureDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAll(pictures: List<Picture>)
 
-    @Query("SELECT * FROM picture")
-    fun getPictures(): DataSource.Factory<Int, Picture>
+    @Query("SELECT distinct(albumId) FROM picture")
+    fun findAlbums(): DataSource.Factory<Int, Int>
 
-    @Query("SELECT * FROM picture")
-    fun getTenPictures(): List<Picture>
+    @Query("SELECT * FROM picture WHERE albumId=:albumId")
+    fun findPicturesByAlbum(albumId : Int): DataSource.Factory<Int, Picture>
 
     @Query("SELECT count(*) FROM picture")
     fun size(): Int

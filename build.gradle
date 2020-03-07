@@ -17,7 +17,7 @@ buildscript {
         lifecycle_version = '2.2.0'
         paging_version = '2.1.1'
         navigation_version = '2.2.1'
-        glide_version = '4.11.0'
+        glide_version = '4.8.0'
         retrofit_version = '2.7.2'
         okhttp_logging_interceptor_version = '4.4.0'
         dagger_version = '2.26'
