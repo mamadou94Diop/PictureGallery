@@ -1,6 +1,8 @@
-package com.mjob.picturegallery.helpers
+package com.mjob.picturegallery.interactor
 
 import androidx.paging.DataSource
+import com.mjob.picturegallery.helpers.TestCoroutineContextProvider
+import com.mjob.picturegallery.helpers.TestCoroutinesRule
 import com.mjob.picturegallery.interactor.PictureInteractor
 import com.mjob.picturegallery.repository.api.PictureApiRepository
 import com.mjob.picturegallery.repository.api.model.Picture
